@@ -1,43 +1,49 @@
-package com.tns.client;
+package com.cg.jpacrud.client;
 
+import com.cg.jpacrud.entities.Book;
+import com.cg.jpacrud.service.BookService;
+import com.cg.jpacrud.service.BookServiceImpl;
 
+public class Client {
 
+	public static void main(String[] args) {
 
-import com.tns.entity.Student;
-import com.tns.services.StudentService;
-import com.tns.services.StudentServiceImpl;
+		BookService service = new BookServiceImpl();
+		
+		
+		System.out.println("************Listing total number of books*************");
+		System.out.println("Total books:"+service.getBookCount());
+		
+		System.out.println("************Listing book with id 105*************");
+		System.out.println("Boo with ID 106:"+service.getBookById(105));
+		
+		System.out.println("************Listing All books*************");
+		for(Book book:service.getAllBooks()) {
+			System.out.println(book);
+		}
+		
+		
+		
+		System.out.println("************Listing book written by Danny Coward*************");
+		for(Book book:service.getAuthorBooks("Danny Coward") ) {
+			System.out.println(book);
+		}
+		
+		System.out.println("************Listing book on Android*************");
+		for(Book book:service.getBookByTitle("Android")) {
+			System.out.println(book);
+		}
+		
+		
+		
+		System.out.println("************Listing All books between 500 and 600*************");
+		for(Book book:service.getBooksInPriceRange(500, 600) ) {
+			System.out.println(book);
+		}
+		
+		
+		
+		
 
-
-
-public class Client 
-{
-public static void main(String[] args) {
-
-//Debug this program as Debug -> Debug as Java Application
-
-StudentService service = new StudentServiceImpl();
-Student student = new Student();
-
-       // Create Operation 
-student.setStudentId(9); 
-student.setName("Rutuja"); 
-service.addStudent(student);
-
-//at this breakpoint, we have added one record to table
-       // Retrieve Operation
-student = service.findStudentById(9); 
-System.out.print("ID:"+student.getStudentID());
-System.out.println(" Name:"+student.getName());
- 
-     // Update Operation
-student = service.findStudentById(9);
-student.setName("Rutuja Malik");
-service.updateStudent(student);
-
-//at this breakpoint, record is removed from table
-        // Delete Operation
-student = service.findStudentById(5);
-service.removeStudent(student);
-System.out.println("End of program/Life cycle completed...");
-}
+	}
 }
