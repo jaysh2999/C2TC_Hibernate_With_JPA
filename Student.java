@@ -1,36 +1,49 @@
-//Entity class
+package com.cg.jpastart.entities;
 
-package com.tns.entity;
+
+
 import java.io.Serializable;
-import javax.persistence.*;
-//INFORMING TO THE PROGRAM ABOUT THE DATABASE TABLE
-@Entity
-@Table(name="student")
-public class Student implements Serializable
-{
-	private static final long serialVersionUID=1L;
 
-	@Id
-	private int StudentID;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="students")
+public class Student implements Serializable {
 	
+	
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int studentId;
+	public Address getAddress() {
+		return address;
+	}
+	public void setAddress(Address address) {
+		this.address = address;
+	}
 	private String name;
 	
-	public int getStudentID() {
-		return StudentID;
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="address_id")
+	private Address address;
+	
+	public int getStudentId() {
+		return studentId;
 	}
-	public void setStudentId(int studentID) {
-		this.StudentID=StudentID;
+	public void setStudentId(int studentId) {
+		this.studentId = studentId;
 	}
-	public String getName() 
-	{
-		return getName();
+	public String getName() {
+		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	@Override
-	public String toString() {
-		return "Student [studentId=" + StudentID + ", name =" + name + "]";
-	}
-
 }
